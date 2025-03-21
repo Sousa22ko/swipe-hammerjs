@@ -1,0 +1,11 @@
+<div class="page" #page>
+  <div class="container border" #container [style.transform]="getTransform()">
+    <mat-card appearance="outlined"
+    (pan)="onPan($event)" 
+    (panend)="onPanEnd($event)">
+      <mat-card-content class="us mcc-size">Respeita minha história 😎 
+        <div #text>{{ this.text }} </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
