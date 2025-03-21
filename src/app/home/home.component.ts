@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { MatCard, MatCardModule } from '@angular/material/card';
 import 'hammerjs';
+import { off } from 'hammerjs';
 
 @Component({
   selector: 'app-home',
@@ -21,13 +22,17 @@ export class HomeComponent implements AfterViewInit{
   threshold = 150; // Distância para considerar swipe
   text = 'blank';
 
+  offsetX = 0
+  offsetY = 0
+
   ngAfterViewInit(): void {
     this.resetCard()
   }
 
   onPan(event: any) {
-    this.x = event.deltaX;
-    this.y = event.deltaY;
+    // console.log(event);
+    this.x = this.offsetX + event.deltaX;
+    this.y = this.offsetY + event.deltaY;
     this.angle = event.deltaX / 50; // Pequena rotação ao arrastar
     this.RGBProcess(event.deltaX);
     this.textProcess(event.deltaX);
@@ -58,13 +63,15 @@ export class HomeComponent implements AfterViewInit{
     } else if (this.x < -this.threshold) {
       console.log('❌ Dislike!');
     }
-    this.resetCard();
+    this.offsetX = this.x;
+    this.offsetY = this.y;
+    // this.resetCard(event);
   }
 
-  resetCard() {
-    this.x = 0;
-    this.y = 0;
-    this.angle = 0;
+  resetCard(event? : any) {
+    // this.x = event.deltaX;
+    // this.y = event.deltaY;
+    // this.angle = 0;
     this.text = 'blank';
     this.RGBProcess(0)
     this.textElement.nativeElement.style.color = 'transparent';
