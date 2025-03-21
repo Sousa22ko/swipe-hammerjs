@@ -70,7 +70,6 @@ export class HomeComponent implements AfterViewInit{
     this.textElement.nativeElement.style.color = 'transparent';
   }
 
-
   getTransform() {
     return `translate(${this.x}px, ${this.y}px) rotate(${this.angle}deg)`;
   }
